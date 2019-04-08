@@ -1,0 +1,39 @@
+machine:
+  node:
+    version: 8.12.0
+
+dependencies:
+  pre:
+    - pip install cookiecutter
+    - yarn global add react-native-cli
+
+test:
+  pre:
+    - bin/generate
+  override:
+    - bin/test
+
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/react-native-template
+    docker:
+      - image: circleci/node:11.13.0
+    steps:
+      - checkout
+
+      - run:
+          name: Install cookiecutter
+          command: pip install cookiecutter
+
+      - run:
+          name: Add react-native-cli
+          command: yarn global add react-native-cli
+
+      - run:
+          name: Generate template
+          command: bin/generate
+
+      - run:
+          name: Run tests
+          command: bin/test
