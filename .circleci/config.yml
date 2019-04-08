@@ -1,38 +1,14 @@
-version: 2.1
-jobs:
-  build:
-    working_directory: ~/react-native-template
-    docker:
-      - image: circleci/python:3.7.3-node
-    steps:
-      - checkout
+machine:
+  node:
+    version: 8.12.0
 
-      - run:
-          name: Install cookiecutter
-          command: pip install --user cookiecutter
+dependencies:
+  pre:
+    - pip install cookiecutter
+    - yarn global add react-native-cli
 
-      - run:
-          name: Update Node.js and npm
-          command: |
-            curl -sSL "https://nodejs.org/dist/v11.13.0/node-v11.13.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.13.0-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
-
-      - run:
-          name: Check current version of node
-          command: node -v
-
-      - run:
-          name: Add react-native-cli
-          command: yarn global add react-native-cli
-
-      - run:
-          name: Install rsync
-          command: sudo apt install rsync
-
-      - run:
-          name: Generate template
-          command: bin/generate
-
-      - run:
-          name: Run tests
-          command: PATH=~/.local/bin:$PATH bin/test
+test:
+  pre:
+    - bin/generate
+  override:
+    - bin/test
