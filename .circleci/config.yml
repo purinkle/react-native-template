@@ -9,7 +9,7 @@ jobs:
 
       - run:
           name: Install cookiecutter
-          command: pip install cookiecutter
+          command: pip install --user cookiecutter
 
       - run:
           name: Add react-native-cli
