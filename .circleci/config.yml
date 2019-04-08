@@ -35,4 +35,4 @@ jobs:
 
       - run:
           name: Run tests
-          command: bin/test
+          command: PATH=~/.local/bin:$PATH bin/test
