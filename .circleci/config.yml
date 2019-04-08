@@ -26,6 +26,10 @@ jobs:
           command: yarn global add react-native-cli
 
       - run:
+          name: Install rsync
+          command: sudo apt install rsync
+
+      - run:
           name: Generate template
           command: bin/generate
 
